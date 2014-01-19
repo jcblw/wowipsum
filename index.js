@@ -5,11 +5,14 @@ app.configure(function(){
   app.use(app.router);
 });
 
-function generateIpsum ( amount ) {
+function generateIpsum ( amount, size ) {
 	var groups = [];
+
+	size = size ? sizes[size] : 20;
+
 	for ( var i = 0; i < amount; i += 1 ) {
 		var paragraph = "";
-		for ( var x = 0; x < 20; x += 1) {
+		for ( var x = 0; x < size; x += 1) {
 			var dword = doge[(Math.round(Math.random() * 3))],
 				wword = words[(Math.round(Math.random() * words.length))];
 
@@ -31,6 +34,11 @@ var doge = [
 		"so",
 		"very",
 	],
+	sizes = {
+		"large" : 50,
+		"medium" : 25,
+		"small" : 20
+	},
  	words = [
  		"codeday",
  		"hax",
@@ -57,11 +65,12 @@ app.configure('development', function(){
 app.get('/paragraphs.json', function( req, res ){
 	var payload = req.query,
 		amount = payload.amount || 1,
-		results = generateIpsum( +amount );
+		size = payload.size,
+		results = generateIpsum( +amount, size );
 
-		res.json({
-			paragraphs : results
-		});
+	res.json({
+		paragraphs : results
+	});
 });
 
 app.listen( process.env.PORT || 3000 );
