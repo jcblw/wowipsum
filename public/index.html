@@ -1,0 +1,129 @@
+<!doctype html>
+<title>wow such ipsum</title>
+<style type="text/css">
+	* {
+		-moz-box-sizing: border-box; 
+		-webkit-box-sizing: border-box; 
+		box-sizing: border-box;
+	} 
+	body {
+		background : #f6bb42;
+		font-family: "Comic Sans", cursive;
+	}
+	.wrap {
+		max-width: 600px;
+		margin: 50px auto;
+		position: relative;
+	}
+	.wrap img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		max-width: 100px;
+		max-height: 100px;
+	}
+	.wrap .content {
+		margin-left: 100px;
+		padding : 20px;
+	}
+	.controls,
+	.generated {
+		padding: 10px;
+		background: #FFD57E;
+		border-radius: 20px;
+		margin-top: 10px;
+	}
+
+	#words{
+		display: block;
+		width: 100%;
+	}
+	h1{
+		margin-top: 0;
+		text-align: center;
+		font-size: 80px;
+		color: #222;
+	}
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div class="wrap">
+	<img src="./DOGE.png" />
+	<div class="content">
+		<h1>WowIpsum</h1>
+		<div class="controls">
+			<label>Very Custom Words</label>
+			<input id="words" maxlength="1000" value="codeday, hax, donuts, sloths, go, web, projector, pizza, gmo apples, magik, gasp, omg, trayansaursus, apple piez"/><br>
+			<label for="amount">Wow Paragraph</label>
+			<select id="size">
+				<option value="small">Small</option>
+				<option value="medium" selected>Medium</option>
+				<option value="large">Large</option>
+			</select>
+			<label for="amount">Such Paragraphs</label>
+			<select id="amount">
+				<option value="10">10</option>
+				<option value="20" selected>20</option>
+				<option value="30">30</option>
+			</select>
+			<button id="generate">So Generate</button>
+		</div>
+		<div class="generated">
+			<p> very gererated </p>
+		</div>
+	</div>
+</div>
+<script>
+
+var doge = {};
+ (function(){
+ 	'use strict';
+
+ 	doge.$gen = $( '.generated' );
+ 	doge.$words = $( '#words' );
+ 	doge.$amount = $( '#amount' );
+ 	doge.$size = $( '#size' );
+ 	doge.$button = $( '#generate' );
+
+ 	function suchHtml ( results ) {
+ 		var paragraphs = results.paragraphs;
+ 		if( typeof paragraphs === 'object' ) {
+ 			doge.$gen.html( '' );
+ 			paragraphs.forEach(function( paragraph ){
+ 				var $el = $( '<p/>' );
+ 				$el.html( paragraph );
+ 				doge.$gen.append( $el );
+ 			})
+ 		}
+ 	}
+
+ 	doge.getWow = function ( wow, muchCallback ) {
+ 		$.ajax({
+ 			url : '/paragraphs.json',
+ 			data : wow,
+ 			success : function ( res ) {
+ 				if ( muchCallback ) muchCallback( null, res );
+ 			},
+ 			error : function ( err ) {
+ 				if ( muchCallback ) muchCallback( err )
+ 			}
+ 		})
+ 	} 
+
+ 	function verySubmit ( ) {
+ 		var wow = {
+ 			amount : doge.$amount.val(),
+ 			size : doge.$size.val(),
+ 			words : doge.$words.val()
+ 		};
+ 		doge.getWow( wow, function ( err, res ) {
+ 			if ( err ) return console.warn( err );
+ 			suchHtml( res );
+ 		})
+ 	}
+
+ 	doge.$button.on( 'click', verySubmit );
+
+ }())
+	
+</script>
+
