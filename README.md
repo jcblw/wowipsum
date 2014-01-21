@@ -1,3 +1,5 @@
-### wowipsum
+# Wow Ipsum
 
-a simple nodejs doge lorem ipsum generator.
+![](http://i.imgur.com/KOQ0cU7.gif)
+
+Wow Ipsum is Lorem Ipsum for doges.
